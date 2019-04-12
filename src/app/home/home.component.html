@@ -1,0 +1,13 @@
+<br />
+<br />
+<input type="text" placeholder="Buscar Amigo" [(ngModel)]="query" />
+<br />
+<h3>Amigos</h3>
+<ng-container *ngFor="let friend of friends | search: query; let i = index">
+    <div>
+        <img id="logo-online" src="assets/img/logo_live_{{friend.status}}.png" alt="Logo online"/>
+        <a routerLink="/conversation/{{friend.uid}}">
+            {{i + 1}}. {{friend.nick}} - {{friend.age}} - {{friend.email}}
+        </a>
+    </div>
+</ng-container>
