@@ -7,5 +7,23 @@
             </div>
           </div>
       </div>
+      <div class="row justify-content-md-center">
+        <div class="col-md-6">
+          <div class="center">
+              <h3>Iniciar Sesion</h3>
+          </div>
+          <p *ngIf="operation == 'register'">Ya tienes cuenta? <a (click)="operation = 'login'">Login</a> </p>
+          <p *ngIf="operation == 'login'">No tienes cuenta? <a (click)="operation = 'register'">Registrarse</a> </p>
+          <div class="borderedContainer">
+            <input class="form-control marbo15" type="email" placeholder="Ingresar Correo"/>
+            <input class="form-control marbo15" type="password" placeholder="Ingrese Contraseña"/>
+            <input *ngIf="operation == 'register'" class="form-control marbo15" type="text" placeholder="Ingrese Nick"/>
+          </div>
+          <div class="center marto15">
+            <a *ngIf="operation == 'login'" id="btnLogin" class="btn btn-primary">Inicar Sesion</a>
+            <a *ngIf="operation == 'register'" id="btnRegister" class="btn btn-primary">Registrarme</a>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
