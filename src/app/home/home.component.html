@@ -1,13 +1,42 @@
-<br />
-<br />
-<input type="text" placeholder="Buscar Amigo" [(ngModel)]="query" />
-<br />
-<h3>Amigos</h3>
-<ng-container *ngFor="let friend of friends | search: query; let i = index">
-    <div>
-        <img id="logo-online" src="assets/img/logo_live_{{friend.status}}.png" alt="Logo online"/>
-        <a routerLink="/conversation/{{friend.uid}}">
-            {{i + 1}}. {{friend.nick}} - {{friend.age}} - {{friend.email}}
-        </a>
+<div id="homeContainer">
+    <div id="whiteBorderGlassBox">
+        <div class="homeHeadContainer">
+            <div class="row">
+                <div class="col-md-auto">
+                    <div class="avatarFrameOnline">
+                        <img src="assets/img/generic_avatar.png"  id="homeAvatarPicture"/>
+                    </div>
+                </div>
+                <div class="col">
+                    <b> Cesar </b>
+                    <div>
+                        <span>Online</span>
+                        <<br/>
+                        <span>< Escribe un mensaje pensonal ></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</ng-container>
+
+    <div class="whiteContainerPadded marto15"> 
+        <div class="row">
+            <div class="col">
+                <input class="form-control" type="text" placeholder="Buscar Amigo" [(ngModel)]="query" />
+            </div>
+            <div class="col-md-auto">
+                <img src="assets/img/logo_live_add.png"  class="icon"  />
+            </div>
+        </div>
+
+        <hr />
+        <h3>Amigos ({{friends.length}} / {{friends.length}})</h3> 
+        <div *ngFor="let friend of friends | search: query; let i = index" class="disblo marbo5">
+            <a routerLink="/conversation/{{friend.uid}}">
+                <img src="assets/img/logo_live_{{friend.status}}.png" class="icon" />
+               <b>{{friend.nick}}</b>  - {{friend.subNick  || 'No'}}
+                <span>{{friend.email}}</span>
+            </a>
+        </div>
+    </div>
+</div>
