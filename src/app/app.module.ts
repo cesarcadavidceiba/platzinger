@@ -8,8 +8,14 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { ProfileComponent } from './profile/profile.component';
 import {  Routes, RouterModule } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
-import { SearchPipe } from './pipes/search.pipe'
-import { FormsModule } from '@angular/forms'
+import { SearchPipe } from './pipes/search.pipe';
+import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -32,7 +38,12 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule 
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

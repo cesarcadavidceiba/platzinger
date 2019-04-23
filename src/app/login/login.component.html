@@ -15,14 +15,20 @@
           <p *ngIf="operation == 'register'">Ya tienes cuenta? <a (click)="operation = 'login'">Login</a> </p>
           <p *ngIf="operation == 'login'">No tienes cuenta? <a (click)="operation = 'register'">Registrarse</a> </p>
           <div class="borderedContainer">
-            <input class="form-control marbo15" type="email" placeholder="Ingresar Correo"/>
-            <input class="form-control marbo15" type="password" placeholder="Ingrese Contraseña"/>
+            <input [(ngModel)]="email" class="form-control marbo15" type="email" placeholder="Ingresar Correo"/>
+            <input [(ngModel)]="password" class="form-control marbo15" type="password" placeholder="Ingrese Contraseña"/>
             <input *ngIf="operation == 'register'" class="form-control marbo15" type="text" placeholder="Ingrese Nick"/>
           </div>
           <div class="center marto15">
-            <a *ngIf="operation == 'login'" id="btnLogin" class="btn btn-primary">Inicar Sesion</a>
-            <a *ngIf="operation == 'register'" id="btnRegister" class="btn btn-primary">Registrarme</a>
+            <a (click)="login()" *ngIf="operation == 'login'" id="btnLogin" class="btn btn-primary">Inicar Sesion</a>
+            <a (click)="register()" *ngIf="operation == 'register'" id="btnRegister" class="btn btn-primary">Registrarme</a>
+            <br/>
+            <br/>
+            <button (click)="onLoginFacebook()" *ngIf="operation == 'register'" class="btn btn-facebook btn-lg"><i class="fab fa-facebook fa-fw"></i>Facebook</button>
           </div>
+        </div>
+        <div class="col-md-12">
+          LOGGED: {{isLoggedFacebook}}
         </div>
       </div>
   </div>

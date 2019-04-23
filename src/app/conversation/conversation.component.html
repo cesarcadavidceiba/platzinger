@@ -12,15 +12,11 @@
         <b>Mensaje Personal</b>
         <br />
         <hr />
-        <div class="chat">
-          <div class="destinatario">Yo:</div>
-          <div><p class="mensaje" >Hola</p></div>
-          <div class="destinatario">Amigo:</div>
-          <div><p class="mensaje">Hola, como estas?</p></div>
-          <div class="destinatario">Yo:</div>
-          <div><p class="mensaje">Bien y tu?</p></div>
-          <div class="destinatario">Amigo:</div>
-          <div><p class="mensaje">Muy bien gracias :)</p></div>
+        <div class="d-flex align-items-start flex-column hei250">
+          <span class="speech-bubble">Hola</span>
+          <span class="speech-bubble-me">Hola, como estas?</span>
+          <span class="speech-bubble">Bien y tu?</span>
+          <span class="speech-bubble-me">Muy bien gracias :)</span>
         </div>
       </div>
     </div>
@@ -32,14 +28,14 @@
       </div>
       <div class="col-md-10">
         <textarea id="textAreaChat"> </textarea>
-        <div class="col-md-12 areaEnvio" >
+        <div class="col-md-12 areaEnvio">
           <div class="row">
-              <div class="col-auto mr-auto contentCenter">
-                  <img src="assets/img/zumbido.png" class="icon" />
-              </div>
-              <div class="col-auto">
-                <a class="btn btn-primary" id="btnEnviar">Enviar</a>
-              </div>
+            <div class="col-auto mr-auto contentCenter">
+              <img src="assets/img/zumbido.png" class="icon" />
+            </div>
+            <div class="col-auto">
+              <a class="btn btn-primary" id="btnEnviar">Enviar</a>
+            </div>
           </div>
         </div>
       </div>

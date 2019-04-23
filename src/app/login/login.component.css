@@ -14,3 +14,21 @@
     background: linear-gradient(to bottom, rgba(226, 226, 226, 1) 0%, rgba(219, 219, 219, 1) 50%, rgba(209, 209, 209, 1) 51%, rgba(209, 209, 209, 1) 84%, rgba(209, 209, 209, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#d1d1d1', GradientType=0);
 }
+
+.btn-facebook {
+    background: #3B5998 !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #263961 !important; 
+  }
+
+  .btn-facebook:link, .btn-facebook:visited {
+    color: #fff !important;
+  }
+
+  .btn-facebook:active, .btn-facebook:hover {
+    background: #263961 !important;
+    color: #fff !important;
+  }

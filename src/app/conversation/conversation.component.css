@@ -21,8 +21,9 @@
     font-weight: bold;
 }
 
-.mensaje{
+.mensajeDestinatario{
     padding-left: 15px;
+    
 }
 
 #textAreaChat{
@@ -39,4 +40,20 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.speech-bubble {
+	position: relative;
+	background-color: deepskyblue;
+    border-radius: .4em;
+    padding: 5px;
+    margin: 5px;
+}
+
+.speech-bubble-me {
+    position: relative;
+	background-color: lightgray;
+    border-radius: .4em;
+    padding: 5px;
+    margin: 5px;
 }
