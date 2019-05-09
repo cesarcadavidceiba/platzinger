@@ -27,7 +27,7 @@ export class AuthenticationService {
   }
 
   logOut() {
-    return this.angularFireAuth.auth.signOut;
+    return this.angularFireAuth.auth.signOut();
   }
 
   isAuth() {

@@ -1,4 +1,4 @@
-<div id="conversationContainer">
+<div id="conversationContainer" [ngClass]="{'shaker': shake}">
   <div class="container pato45">
     <div class="row">
       <div class="col-md-2">
@@ -7,16 +7,23 @@
         </div>
       </div>
       <div class="col-md-10">
-        <label id="lblAmigo"><b>Amigo</b> (Online) </label>
+        <label *ngIf="friend" id="lblAmigo"><b>{{friend.nick}}</b> (Online) </label>
         <br />
         <b>Mensaje Personal</b>
         <br />
         <hr />
-        <div class="d-flex align-items-start flex-column hei250">
-          <span class="speech-bubble">Hola</span>
-          <span class="speech-bubble-me">Hola, como estas?</span>
-          <span class="speech-bubble">Bien y tu?</span>
-          <span class="speech-bubble-me">Muy bien gracias :)</span>
+        <div class="d-flex align-items-start flex-column hei250 overflow-auto">
+          <div class="messageGroup" *ngFor="let m of conversation">
+            <b>{{getUserNickById(m.sender)}}</b> dice:
+            <br />
+            <div *ngIf="m.type == 'text' || m.type == 'zumbido'" >
+              <span>{{m.text}}</span>
+            </div>
+            <div *ngIf="m.type == 'image'" >
+              <img src="{{m.text}}" class="avatarImage img-fluid" />
+            </div>
+            <br />
+          </div>
         </div>
       </div>
     </div>
@@ -27,11 +34,12 @@
         </div>
       </div>
       <div class="col-md-10">
-        <textarea id="textAreaChat"> </textarea>
+        <textarea id="textAreaChat" [(ngModel)]="textMessage" (keyup.enter)="sendMessage()"> </textarea>
         <div class="col-md-12 areaEnvio">
           <div class="row">
             <div class="col-auto mr-auto contentCenter">
-              <img src="assets/img/zumbido.png" class="icon" />
+              <img (click)="sendZumbido()" src="assets/img/zumbido.png" class="icon" />
+              <a (click)="open(content)" class="fas fa-images"></a>
             </div>
             <div class="col-auto">
               <a class="btn btn-primary" id="btnEnviar">Enviar</a>
@@ -42,3 +50,34 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Subir Imagen</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-auto">
+        <label class="custom-file-upload mr-5">
+          <input type="file" (change)="fileChangeEvent($event)" />
+          Seleccionar Imagen
+        </label>
+
+        <img [src]="croppedImageTwo || 'assets/img/generic_avatar.png' " class="avatarImage img-fluid" />
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="col-md-12">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+          [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" ></image-cropper>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="saveImageMenssage(); modal.close('Save click') ">Enviar Imagen</button>
+  </div>
+</ng-template>

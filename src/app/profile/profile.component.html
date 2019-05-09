@@ -2,34 +2,38 @@
   <div class="container pato45">
     <div class="row">
       <div class="col-md-3">
-        <div class="avatarFrameOnline">
-          <img src="assets/img/generic_avatar.png" class="avatarImage img-fluid" />
+        <div class="avatarFrameOnline" *ngIf="user">
+          <img [src]="croppedImage || user.avatar || 'assets/img/generic_avatar.png' " class="avatarImage img-fluid" />
         </div>
         <hr />
         <div>
           <span>Cambiar Foto</span><br />
           <label class="custom-file-upload">
-            <input type="file" />
+            <input type="file" (change)="fileChangeEvent($event)" />
             Subir Avatar
           </label>
         </div>
       </div>
-      <div class="col-md-9">
+      <div class="col-md-9" *ngIf="user">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1"
+          [resizeToWidth]="128" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+
         <div>
           <label fixed>Nick</label>
-          <input type="text" class="form-control" />
+          <input [(ngModel)]="user.nick" type="text" class="form-control" />
         </div>
         <div>
           <label fixed>SubNick</label>
-          <input type="text" class="form-control" />
+          <input [(ngModel)]="user.subNick" type="text" class="form-control" />
         </div>
         <div>
           <label fixed>Email</label>
-          <input type="email" disabled class="form-control" />
+          <input [(ngModel)]="user.email" type="email" disabled class="form-control" />
         </div>
         <div>
           <label fixed>Estado</label>
-          <select class="form-control">
+          <select [(ngModel)]="user.status" class="form-control">
             <option value="online">Conectado</option>
             <option value="appear_offline">Desconectado</option>
             <option value="away">Ausente</option>
@@ -37,8 +41,8 @@
           </select>
         </div>
         <hr>
-        <a class="btn btn-primary btn-block">Guardar</a>
+        <a (click)="saveSetting()" class="btn btn-primary btn-block">Guardar</a>
       </div>
     </div>
   </div>
-</div>>
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +14,11 @@ export class LoginComponent implements OnInit {
   email: string = null;
   password: string = null;
   isLoggedFacebook = false;
+  nick: string = null;
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private userService: UserService,
+    private router : Router
+    ) { }
 
   ngOnInit() {
     this.getCurrentUser();
@@ -23,19 +28,20 @@ export class LoginComponent implements OnInit {
     this.authenticationService.loginWithEmail(this.email, this.password).then((data) => {
       console.log('Logueado Correctamente!');
       console.log(data);
-    }).catch( (error) => {
+      this.router.navigate(['home']);
+    }).catch((error) => {
       alert('Ocurrio un error');
       console.log(error);
     });
   }
 
-  onLoginFacebook(){
+  onLoginFacebook() {
     this.authenticationService.loginWithFacebook();
   }
 
-  getCurrentUser(){
-    this.authenticationService.isAuth().subscribe( auth => {
-      if(auth){
+  getCurrentUser() {
+    this.authenticationService.isAuth().subscribe(auth => {
+      if (auth) {
         console.log('User Logueado');
         this.isLoggedFacebook = true;
       } else {
@@ -47,10 +53,20 @@ export class LoginComponent implements OnInit {
 
   register() {
     this.authenticationService.registerWithEmail(this.email, this.password).then((data) => {
-      console.log('Registrado Correctamente!');
-      console.log(data);
-    }).catch( (error) => {
-      alert('Ocurrio un error');
+      const user = {
+        uid: data.user.uid,
+        email: this.email,
+        nick: this.nick
+      };
+      this.userService.createUSer(user).then((registro) => {
+        console.log('Registrado Correctamente!');
+        console.log(registro);
+      }).catch((error) => {
+        alert('Ocurrio un error');
+        console.log(error);
+      });
+    }).catch((error) => {
+      alert('Ocurrio un error: ' + error);
       console.log(error);
     });
   }

@@ -13,6 +13,8 @@
                         <span>Online</span>
                         <<br/>
                         <span>< Escribe un mensaje pensonal ></span>
+                        <br />
+                        <a class="btn btn-primary" (click)="logout()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -30,10 +32,10 @@
         </div>
 
         <hr />
-        <h3>Amigos ({{friends.length}} / {{friends.length}})</h3> 
+        <h3 *ngIf="friends">Amigos ({{friends.length}} / {{friends.length}})</h3> 
         <div *ngFor="let friend of friends | search: query; let i = index" class="disblo marbo5">
             <a routerLink="/conversation/{{friend.uid}}">
-                <img src="assets/img/logo_live_{{friend.status}}.png" class="icon" />
+                <img src="assets/img/logo_live_online.png" class="icon" />
                <b>{{friend.nick}}</b>  - {{friend.subNick  || 'No'}}
                 <span>{{friend.email}}</span>
             </a>
