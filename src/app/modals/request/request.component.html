@@ -1,0 +1,51 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      Nueva Solicitud de Amistad
+      <a class="closeButton" (click)="close()">x</a>
+    </div>
+    <div class="modal-body" style="height: auto">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="avatarFrameOnline">
+            <img [src]="userRequestFriendship.avatar || 'assets/img/generic_avatar.png'" class="img-fluid" />
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="mb-3">
+            <div><b>{{userRequestFriendship.nick}} </b></div>
+            <div><small>{{userRequestFriendship.email}}</small></div>
+            <div><small>Te ha enviado esta solicitud</small></div>
+          </div>
+          <div class="alert alert-primary" role="alert">
+            <b>Te ha enviado este saludo</b>
+            <p>{{currentRequest.greeting}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <h4>Deseas agregar a esta persona?</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <input type="radio" name="addToMsn" [(ngModel)]="shouldAdd" value="yes" id="add-yes" />
+          <label for="add-yes">Agregar</label>
+        </div>
+        <div class="col-md-3">
+          <input type="radio" name="addToMsn" [(ngModel)]="shouldAdd" value="no" id="add-no" />
+          <label for="add-no">No Agregar</label>
+        </div>
+        <div class="col-md-3">
+          <input type="radio" name="addToMsn" [(ngModel)]="shouldAdd" value="no" id="add-later" />
+          <label for="add-later">Agregar Despues</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-default" (click)="close()">Cerrar</a>
+      <a class="btn btn-primary" (click)="accept()">Ok</a>
+    </div>
+  </div>
+</div>

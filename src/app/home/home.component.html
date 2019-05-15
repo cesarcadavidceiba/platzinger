@@ -3,17 +3,19 @@
         <div class="homeHeadContainer">
             <div class="row">
                 <div class="col-md-auto">
-                    <div class="avatarFrameOnline">
-                        <img src="assets/img/generic_avatar.png"  id="homeAvatarPicture"/>
+                    <div class="avatarFrameOnline" *ngIf="user">
+                        <img [src]=" user.avatar || 'assets/img/generic_avatar.png'" id="homeAvatarPicture" />
                     </div>
                 </div>
-                <div class="col">
-                    <b> Cesar </b>
+                <div class="col" *ngIf="user">
+                    <b> {{user.nick}} </b>
                     <div>
-                        <span>Online</span>
-                        <<br/>
-                        <span>< Escribe un mensaje pensonal ></span>
-                        <br />
+                        <span>{{user.status}}</span>
+                    </div>
+                    <div>
+                        <span> Escribe un mensaje pensonal </span>
+                    </div>
+                    <div>
                         <a class="btn btn-primary" (click)="logout()">Logout</a>
                     </div>
                 </div>
@@ -21,24 +23,47 @@
         </div>
     </div>
 
-    <div class="whiteContainerPadded marto15"> 
+    <div class="whiteContainerPadded marto15">
         <div class="row">
             <div class="col">
                 <input class="form-control" type="text" placeholder="Buscar Amigo" [(ngModel)]="query" />
             </div>
             <div class="col-md-auto">
-                <img src="assets/img/logo_live_add.png"  class="icon"  />
+                <img (click)="open(content)" src="assets/img/logo_live_add.png" class="icon" />
             </div>
         </div>
 
         <hr />
-        <h3 *ngIf="friends">Amigos ({{friends.length}} / {{friends.length}})</h3> 
-        <div *ngFor="let friend of friends | search: query; let i = index" class="disblo marbo5">
-            <a routerLink="/conversation/{{friend.uid}}">
-                <img src="assets/img/logo_live_online.png" class="icon" />
-               <b>{{friend.nick}}</b>  - {{friend.subNick  || 'No'}}
-                <span>{{friend.email}}</span>
-            </a>
+        <h3 *ngIf="user && user.friends">Amigos ({{user.friends.length}} / {{user.friends.length}})</h3>
+        <div *ngIf="user && user.friends">
+            <div class="disblo marbo5">
+                <app-contact class="col-md-12" *ngFor="let uidFriend of user.friends" [uid]="uidFriend"></app-contact>
+            </div>
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Agregar nuevo amigo</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <b>Ingresa el email de tu amigo</b>
+                <input [(ngModel)]="friendEmail" (keyup.enter)="sendRequest()" type="email" class="form-control"
+                    placeholder="Email" />
+            </div>
+            <div class="col-md-12">
+                <b>Enviale un saludo a tu amigo</b>
+                <textarea [(ngModel)]="greetingRequest" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="sendRequest() ">Guardar</button>
+    </div>
+</ng-template>

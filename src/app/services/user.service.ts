@@ -29,6 +29,10 @@ export class UserService {
     return this.angularFireDatabase.object('/users/' + uid + '/avatar').set(avatar);
   }
 
+  addFriend(userUid, friendUid) {
+    this.angularFireDatabase.object('/users/' + userUid + '/friends/' + friendUid).set(friendUid);
+    return this.angularFireDatabase.object('/users/' + friendUid + '/friends/' + userUid).set(userUid);
+  }
 
 
 }
